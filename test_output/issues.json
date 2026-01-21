@@ -1,0 +1,14 @@
+[
+  {
+    "severity": "warning",
+    "element_selector": ".absolute",
+    "element_type": "container",
+    "issue_type": "empty_container",
+    "description": "Empty container taking up space",
+    "suggested_fix": "Remove the empty .absolute element or add content to it",
+    "css_property": null,
+    "current_value": null,
+    "recommended_value": null,
+    "code_snippet": null
+  }
+]

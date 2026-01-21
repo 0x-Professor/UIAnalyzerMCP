@@ -1,0 +1,27 @@
+body.geistmono_157ca88a-module__iaM1Ya__variable.font-mono.antialiased
+  div
+  div.relative.flex.min-h-screen
+    header.sticky.top-0.z-50
+      div.container.flex.h-14
+        div.flex.items-center
+          a.flex.items-center.space-x-2
+        div.flex.items-center.gap-6
+          nav.hidden.md:flex.items-center
+          button.inline-flex.h-9.w-9
+    main.flex-1
+      div.flex.flex-col.gap-16
+        section.relative.pt-20.pb-16
+          div.absolute.top-1/2.left-1/2
+          div.container.max-w-5xl.mx-auto
+        section.container.max-w-6xl.mx-auto
+          div.flex.items-center.justify-between
+          div.grid.grid-cols-1.md:grid-cols-2
+        section.container.max-w-6xl.mx-auto
+          div.flex.items-center.justify-between
+          div.grid.grid-cols-1.sm:grid-cols-2
+        section.container.max-w-4xl.mx-auto
+          div.rounded-none.border.text-card-foreground
+    footer.py-6.md:px-8.md:py-0
+      div.container.flex.flex-col
+        p.text-center.text-sm.leading-loose
+  script#_R_
