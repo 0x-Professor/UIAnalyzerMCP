@@ -8,12 +8,12 @@ An MCP (Model Context Protocol) server that analyzes website UIs and provides pr
 
 ## Features
 
-- 🔍 **Live UI Analysis** - Renders and inspects actual websites using Playwright
-- 🎯 **Smart Query Interpretation** - Understands vague complaints like "navbar is broken"
-- 🛠️ **Precise Fix Instructions** - Generates specific CSS selectors and property changes
-- 🔧 **Technology Detection** - Identifies React, Vue, Angular, Next.js, Tailwind, Bootstrap, and more
-- 📱 **Responsive Testing** - Compare UIs across mobile, tablet, and desktop viewports
-- ♿ **Accessibility Analysis** - Extracts accessibility tree for semantic understanding
+-  **Live UI Analysis** - Renders and inspects actual websites using Playwright
+-  **Smart Query Interpretation** - Understands vague complaints like "navbar is broken"
+-  **Precise Fix Instructions** - Generates specific CSS selectors and property changes
+-  **Technology Detection** - Identifies React, Vue, Angular, Next.js, Tailwind, Bootstrap, and more
+-  **Responsive Testing** - Compare UIs across mobile, tablet, and desktop viewports
+-  **Accessibility Analysis** - Extracts accessibility tree for semantic understanding
 
 ## The Problem
 
@@ -323,14 +323,6 @@ uv run mcp dev server.py
 uv run python test_mcp_server.py
 ```
 
-### Test Suite
-
-The test suite (`test_mcp_server.py`) tests all functionality against real websites:
-
-**Test Websites:**
-- https://team-whispered.vercel.app/ (Next.js + Tailwind + shadcn/ui)
-- https://shameerkashif.me/ (React + Next.js)
-- https://example.com (Plain HTML)
 
 **Test Coverage:**
 - Query interpretation (vague user queries to element types)
