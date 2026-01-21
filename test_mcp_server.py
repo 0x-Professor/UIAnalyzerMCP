@@ -699,6 +699,10 @@ async def run_all_tests():
             total_passed += p
             total_failed += f
             
+            p, f = await test_tech_stack_detection(browser)
+            total_passed += p
+            total_failed += f
+            
         finally:
             await browser.close()
     
