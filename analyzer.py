@@ -16,7 +16,9 @@ from models import (
     UIAnalysisResult,
     FixInstruction,
     FixInstructionsResult,
+    TechStackInfo,
 )
+from framework_detector import detect_tech_stack, get_tech_stack_summary
 
 
 # Element type mapping: selectors for common UI components
