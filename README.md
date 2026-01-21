@@ -262,9 +262,31 @@ The analyzer can identify and analyze:
 # Run with MCP inspector for debugging
 uv run mcp dev server.py
 
-# Run tests (if available)
-uv run pytest
+# Run the test suite
+uv run python test_mcp_server.py
 ```
+
+### Test Suite
+
+The test suite (`test_mcp_server.py`) tests all functionality:
+
+- Query interpretation (vague user queries to element types)
+- Page loading across multiple test sites
+- Screenshot capture (full page, viewport, highlighted elements)
+- Accessibility tree extraction
+- DOM structure extraction
+- Element identification by type
+- Issue detection
+- Full page analysis
+- Fix instruction generation
+- Viewport comparison (mobile, tablet, desktop)
+
+Test artifacts are saved to `test_output/` directory:
+- Screenshots at different viewports
+- Accessibility tree YAML
+- DOM structure text
+- Detected elements JSON
+- Analysis results JSON
 
 ## License
 
