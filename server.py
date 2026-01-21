@@ -57,7 +57,7 @@ async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
 # Create the MCP server with lifespan for shared browser
 mcp = FastMCP(
     "UI Analyzer",
-    description="Analyzes website UIs and provides precise fix instructions for AI coding assistants",
+    instructions="Analyzes website UIs and provides precise fix instructions for AI coding assistants. Use this server to diagnose and fix messy UI updates.",
     lifespan=app_lifespan,
 )
 
