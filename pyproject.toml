@@ -1,7 +1,18 @@
 [project]
 name = "uianalyzermcp"
 version = "0.1.0"
-description = "Add your description here"
+description = "MCP server for website UI analysis and correction - helps AI coding assistants understand and fix messy UI issues"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "mcp[cli]>=1.0.0",
+    "playwright>=1.40.0",
+    "pydantic>=2.0.0",
+]
+
+[project.scripts]
+uianalyzer = "server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
