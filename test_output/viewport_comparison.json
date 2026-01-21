@@ -1,0 +1,23 @@
+{
+  "mobile": {
+    "width": 375,
+    "height": 667,
+    "total_elements": 10,
+    "visible_elements": 10,
+    "screenshot_size": 29574
+  },
+  "tablet": {
+    "width": 768,
+    "height": 1024,
+    "total_elements": 11,
+    "visible_elements": 11,
+    "screenshot_size": 57649
+  },
+  "desktop": {
+    "width": 1920,
+    "height": 1080,
+    "total_elements": 11,
+    "visible_elements": 11,
+    "screenshot_size": 76213
+  }
+}
