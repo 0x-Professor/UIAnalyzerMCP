@@ -490,6 +490,71 @@ async def compare_viewports(
             await pw.stop()
 
 
+@mcp.tool()
+async def get_tech_stack(
+    url: str,
+    viewport_width: int = 1920,
+    viewport_height: int = 1080,
+    ctx: Context = None,
+) -> dict:
+    """
+    Detect the technology stack (frameworks, libraries, CSS approach) used on a webpage.
+    
+    Use this tool to understand what technologies a website is built with before
+    suggesting fixes. This helps generate framework-appropriate fix instructions.
+    
+    Detects:
+    - JS Frameworks: React, Vue, Angular, Svelte, Solid, Preact
+    - Meta Frameworks: Next.js, Nuxt, Remix, Gatsby, Astro, SvelteKit, Vite
+    - CSS Frameworks: Tailwind CSS, Bootstrap, Bulma, Foundation
+    - UI Libraries: shadcn/ui, Material UI, Chakra UI, Ant Design, Radix UI
+    - CSS Approach: CSS Modules, styled-components, inline styles, CSS variables
+    - JS Libraries: jQuery, HTMX, Alpine.js
+    
+    Args:
+        url: The URL of the webpage to analyze
+        viewport_width: Viewport width in pixels (default: 1920)
+        viewport_height: Viewport height in pixels (default: 1080)
+    
+    Returns:
+        Tech stack information including detected frameworks, libraries, and
+        framework-specific fix guidance.
+    """
+    if ctx:
+        await ctx.info(f"Detecting tech stack for {url}")
+    
+    app_ctx: AppContext = ctx.request_context.lifespan_context if ctx else None
+    
+    if app_ctx:
+        browser = app_ctx.browser
+    else:
+        pw = await async_playwright().start()
+        browser = await pw.chromium.launch(headless=True)
+    
+    try:
+        page = await load_page(browser, url, viewport_width, viewport_height)
+        
+        if ctx:
+            await ctx.info("Analyzing page for frameworks and libraries...")
+        
+        # Use the comprehensive tech stack detection
+        tech_stack = await get_tech_stack_summary(page)
+        
+        await page.context.close()
+        
+        if ctx:
+            primary = tech_stack.get("summary", {}).get("primary_framework", "Unknown")
+            css_lib = tech_stack.get("summary", {}).get("primary_css_library", "Unknown")
+            await ctx.info(f"Detected: {primary} with {css_lib}")
+        
+        return tech_stack
+    
+    finally:
+        if not app_ctx:
+            await browser.close()
+            await pw.stop()
+
+
 @mcp.resource("element-selectors://common")
 def get_common_selectors() -> str:
     """
