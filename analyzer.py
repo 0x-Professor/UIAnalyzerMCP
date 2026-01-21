@@ -733,6 +733,10 @@ async def analyze_page_full(
     # Detect issues
     issues = await detect_ui_issues(page, elements)
     
+    # Detect technology stack
+    tech_stack_data = await get_tech_stack_summary(page)
+    tech_stack = TechStackInfo(**tech_stack_data)
+    
     # Capture screenshot
     screenshot_base64 = None
     if include_screenshot:
@@ -749,12 +753,15 @@ async def analyze_page_full(
     analysis_notes = []
     if query_info:
         analysis_notes.append(query_info.get("interpreted_meaning", ""))
+    if tech_stack.summary:
+        analysis_notes.append(f"Tech Stack: {tech_stack.summary}")
     
     return UIAnalysisResult(
         url=url,
         page_title=title,
         viewport_width=viewport_width,
         viewport_height=viewport_height,
+        tech_stack=tech_stack,
         elements_summary=elements_summary,
         elements=elements,
         issues=issues,
