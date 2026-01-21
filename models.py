@@ -136,6 +136,43 @@ class ElementQuery(BaseModel):
     )
 
 
+class TechStackInfo(BaseModel):
+    """Information about detected technology stack."""
+    
+    primary_framework: str | None = Field(
+        default=None,
+        description="Primary JS framework (React, Vue, Angular, Svelte, etc.)"
+    )
+    meta_framework: str | None = Field(
+        default=None,
+        description="Meta framework if any (Next.js, Nuxt, Remix, Gatsby, Astro)"
+    )
+    css_approach: str | None = Field(
+        default=None,
+        description="CSS approach used (tailwind, bootstrap, css-modules, etc.)"
+    )
+    ui_library: str | None = Field(
+        default=None,
+        description="UI component library (shadcn/ui, Material UI, Chakra UI, etc.)"
+    )
+    frameworks: list[dict] = Field(
+        default_factory=list,
+        description="All detected frameworks with name, category, and confidence"
+    )
+    summary: str = Field(
+        default="",
+        description="Human-readable summary of the tech stack"
+    )
+    fix_approach: str = Field(
+        default="",
+        description="Framework-specific guidance for fixing UI issues"
+    )
+    details: dict = Field(
+        default_factory=dict,
+        description="Detailed detection flags"
+    )
+
+
 class UIAnalysisResult(BaseModel):
     """Complete result of analyzing a webpage UI."""
     
@@ -143,6 +180,12 @@ class UIAnalysisResult(BaseModel):
     page_title: str = Field(description="Page title from document")
     viewport_width: int = Field(description="Viewport width used for analysis")
     viewport_height: int = Field(description="Viewport height used for analysis")
+    
+    # Technology stack detection
+    tech_stack: TechStackInfo | None = Field(
+        default=None,
+        description="Detected technology stack (frameworks, CSS libraries, etc.)"
+    )
     
     elements_summary: dict[str, int] = Field(
         default_factory=dict,
