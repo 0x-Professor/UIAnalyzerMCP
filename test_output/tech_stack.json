@@ -1,0 +1,27 @@
+{
+  "primary_framework": "Next.js",
+  "meta_framework": "Next.js",
+  "css_approach": "tailwind",
+  "ui_library": null,
+  "frameworks": [
+    {
+      "name": "Next.js",
+      "category": "meta_framework",
+      "confidence": "high"
+    },
+    {
+      "name": "Tailwind CSS",
+      "category": "css_framework",
+      "confidence": "high"
+    }
+  ],
+  "summary": "Meta Framework: Next.js | CSS: Tailwind CSS | Uses CSS Variables",
+  "fix_approach": "Next.js: Use className prop for styling. Check globals.css for base styles. Component files are typically in /components or /app directories. For Tailwind issues, check tailwind.config.js for theme customization. Tailwind: Modify classes directly in JSX/HTML. For custom values, use arbitrary values like w-[200px] or extend theme in tailwind.config.js. Use @apply in CSS for reusable class combinations.",
+  "details": {
+    "has_tailwind": true,
+    "has_bootstrap": false,
+    "uses_css_modules": false,
+    "uses_css_variables": true,
+    "uses_inline_styles": false
+  }
+}

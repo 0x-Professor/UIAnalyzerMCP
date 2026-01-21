@@ -859,11 +859,20 @@ async def get_tech_stack_summary(page: Page) -> dict:
     """Get a simplified tech stack summary for API response."""
     result = await detect_tech_stack(page)
     
+    # Categorize frameworks
+    js_frameworks = [f.name for f in result.frameworks if f.category == "js_framework"]
+    css_libraries = [f.name for f in result.frameworks if f.category == "css_framework"]
+    ui_libraries = [f.name for f in result.frameworks if f.category == "ui_library"]
+    meta_frameworks = [f.name for f in result.frameworks if f.category == "meta_framework"]
+    
     return {
         "primary_framework": result.primary_framework,
         "meta_framework": result.meta_framework,
         "css_approach": result.css_approach,
-        "ui_library": next((f.name for f in result.frameworks if f.category == "ui_library"), None),
+        "js_frameworks": js_frameworks,
+        "css_libraries": css_libraries,
+        "ui_libraries": ui_libraries,
+        "meta_frameworks": meta_frameworks,
         "frameworks": [
             {
                 "name": f.name,
