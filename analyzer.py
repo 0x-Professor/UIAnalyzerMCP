@@ -154,7 +154,7 @@ QUERY_KEYWORDS: dict[str, list[str]] = {
     "image": ["image", "img", "picture", "photo", "icon", "logo"],
     "section": ["section", "area", "part", "block", "div"],
     "layout": ["layout", "grid", "flex", "spacing", "alignment", "margin", "padding"],
-    "responsive": ["mobile", "responsive", "breakpoint", "screen size", "viewport"],
+    "responsive": ["mobile", "responsive", "breakpoint", "screen size", "viewport", "tablet", "phone", "desktop"],
 }
 
 
