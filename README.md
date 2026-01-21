@@ -123,7 +123,18 @@ Add to your Claude Desktop config file:
 }
 ```
 
-## Available Tools
+## Available Tools (8 Total)
+
+| Tool | Description |
+|------|-------------|
+| `analyze_page` | Full UI analysis with elements, issues, and screenshot |
+| `get_fix_instructions` | Generate precise fix instructions from vague complaints |
+| `get_screenshot` | Capture screenshots with optional element highlighting |
+| `get_element_details` | Get detailed info about specific element types |
+| `get_accessibility_snapshot` | Extract accessibility tree in YAML format |
+| `get_dom_overview` | Get simplified DOM structure overview |
+| `compare_viewports` | Compare UI at mobile, tablet, and desktop sizes |
+| `get_tech_stack` | Detect frameworks, libraries, and CSS approach |
 
 ### analyze_page
 
@@ -314,8 +325,14 @@ uv run python test_mcp_server.py
 
 ### Test Suite
 
-The test suite (`test_mcp_server.py`) tests all functionality:
+The test suite (`test_mcp_server.py`) tests all functionality against real websites:
 
+**Test Websites:**
+- https://team-whispered.vercel.app/ (Next.js + Tailwind + shadcn/ui)
+- https://shameerkashif.me/ (React + Next.js)
+- https://example.com (Plain HTML)
+
+**Test Coverage:**
 - Query interpretation (vague user queries to element types)
 - Page loading across multiple test sites
 - Screenshot capture (full page, viewport, highlighted elements)
@@ -326,6 +343,7 @@ The test suite (`test_mcp_server.py`) tests all functionality:
 - Full page analysis
 - Fix instruction generation
 - Viewport comparison (mobile, tablet, desktop)
+- **Technology stack detection**
 
 Test artifacts are saved to `test_output/` directory:
 - Screenshots at different viewports
@@ -333,10 +351,11 @@ Test artifacts are saved to `test_output/` directory:
 - DOM structure text
 - Detected elements JSON
 - Analysis results JSON
+- **Tech stack detection results**
 
 ## License
 
-MIT License
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
