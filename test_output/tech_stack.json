@@ -2,7 +2,14 @@
   "primary_framework": "Next.js",
   "meta_framework": "Next.js",
   "css_approach": "tailwind",
-  "ui_library": null,
+  "js_frameworks": [],
+  "css_libraries": [
+    "Tailwind CSS"
+  ],
+  "ui_libraries": [],
+  "meta_frameworks": [
+    "Next.js"
+  ],
   "frameworks": [
     {
       "name": "Next.js",
