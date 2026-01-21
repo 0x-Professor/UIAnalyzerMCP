@@ -543,8 +543,8 @@ async def get_tech_stack(
         await page.context.close()
         
         if ctx:
-            primary = tech_stack.get("summary", {}).get("primary_framework", "Unknown")
-            css_lib = tech_stack.get("summary", {}).get("primary_css_library", "Unknown")
+            primary = tech_stack.get("primary_framework", "Unknown")
+            css_lib = tech_stack.get("css_approach", "Unknown")
             await ctx.info(f"Detected: {primary} with {css_lib}")
         
         return tech_stack
