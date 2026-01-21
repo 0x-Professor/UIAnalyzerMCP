@@ -4,6 +4,12 @@ UI Analyzer MCP Server
 An MCP server that analyzes website UIs and provides precise fix instructions
 for AI coding assistants. Helps fix messy UI updates by identifying elements
 and generating specific CSS/HTML changes.
+
+Supports detection of:
+- JS Frameworks: React, Vue, Angular, Svelte, and more
+- Meta Frameworks: Next.js, Nuxt, Remix, Gatsby, Astro
+- CSS Frameworks: Tailwind CSS, Bootstrap, Bulma, Foundation
+- UI Libraries: shadcn/ui, Material UI, Chakra UI, Ant Design
 """
 
 import base64
@@ -20,6 +26,7 @@ from models import (
     UIAnalysisResult,
     FixInstructionsResult,
     ElementQuery,
+    TechStackInfo,
 )
 from analyzer import (
     load_page,
@@ -33,6 +40,7 @@ from analyzer import (
     interpret_user_query,
     ELEMENT_SELECTORS,
 )
+from framework_detector import get_tech_stack_summary, detect_tech_stack
 
 
 @dataclass
