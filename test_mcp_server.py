@@ -23,6 +23,7 @@ from analyzer import (
     ELEMENT_SELECTORS,
 )
 from models import UIElement, UIAnalysisResult, FixInstructionsResult
+from framework_detector import detect_tech_stack, get_tech_stack_summary
 
 
 # Test websites
