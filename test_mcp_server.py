@@ -29,6 +29,7 @@ from framework_detector import detect_tech_stack, get_tech_stack_summary
 # Test websites
 TEST_URLS = {
     "team_whispered": "https://team-whispered.vercel.app/",
+    "shameer_portfolio": "https://shameerkashif.me/",
     "example": "https://example.com",
     "httpbin": "https://httpbin.org/html",
 }
@@ -559,16 +560,24 @@ async def test_tech_stack_detection(browser):
         # Test the detect_tech_stack function
         tech_result = await detect_tech_stack(page)
         
-        print(f"  Detected JS Frameworks: {tech_result.js_frameworks}")
-        print(f"  Detected Meta Frameworks: {tech_result.meta_frameworks}")
-        print(f"  Detected CSS Libraries: {tech_result.css_libraries}")
-        print(f"  Detected UI Libraries: {tech_result.ui_libraries}")
+        # Get frameworks by category
+        js_frameworks = [f.name for f in tech_result.frameworks if f.category == "js_framework"]
+        meta_frameworks = [f.name for f in tech_result.frameworks if f.category == "meta_framework"]
+        css_libraries = [f.name for f in tech_result.frameworks if f.category == "css_framework"]
+        ui_libraries = [f.name for f in tech_result.frameworks if f.category == "ui_library"]
+        
+        print(f"  Primary Framework: {tech_result.primary_framework}")
+        print(f"  Meta Framework: {tech_result.meta_framework}")
         print(f"  CSS Approach: {tech_result.css_approach}")
+        print(f"  JS Frameworks: {js_frameworks}")
+        print(f"  CSS Libraries: {css_libraries}")
+        print(f"  UI Libraries: {ui_libraries}")
+        print(f"  All Detected: {[f.name for f in tech_result.frameworks]}")
         
         # Check for expected technologies (Next.js site)
-        has_react = any("react" in fw.lower() for fw in tech_result.js_frameworks)
-        has_next = any("next" in fw.lower() for fw in tech_result.meta_frameworks)
-        has_tailwind = any("tailwind" in lib.lower() for lib in tech_result.css_libraries)
+        has_react = tech_result.has_react or any("react" in fw.lower() for fw in js_frameworks)
+        has_next = tech_result.meta_framework and "next" in tech_result.meta_framework.lower()
+        has_tailwind = tech_result.has_tailwind or any("tailwind" in lib.lower() for lib in css_libraries)
         
         if has_react or has_next:
             print(f"  PASS: Detected React/Next.js framework")
@@ -596,13 +605,12 @@ async def test_tech_stack_detection(browser):
             failed += 1
         
         # Test fix guidance generation
-        if tech_result.fix_guidance:
-            print(f"  PASS: Fix guidance generated ({len(tech_result.fix_guidance)} recommendations)")
-            for guidance in tech_result.fix_guidance[:3]:
-                print(f"        - {guidance[:80]}...")
+        if tech_result.fix_approach:
+            print(f"  PASS: Fix approach guidance generated")
+            print(f"        {tech_result.fix_approach[:150]}...")
             passed += 1
         else:
-            print(f"  PASS: No specific fix guidance (framework may not be detected)")
+            print(f"  PASS: No specific fix approach (framework may not be detected)")
             passed += 1
         
         # Save tech stack data
@@ -619,14 +627,35 @@ async def test_tech_stack_detection(browser):
         traceback.print_exc()
         failed += 1
     
+    # Test against shameer's portfolio (likely Next.js/React)
+    try:
+        page = await load_page(browser, TEST_URLS["shameer_portfolio"], 1920, 1080)
+        tech_result = await detect_tech_stack(page)
+        
+        print(f"\n  shameerkashif.me detection:")
+        print(f"    Primary Framework: {tech_result.primary_framework or 'None'}")
+        print(f"    Meta Framework: {tech_result.meta_framework or 'None'}")
+        print(f"    CSS Approach: {tech_result.css_approach or 'None'}")
+        print(f"    Detected: {[f.name for f in tech_result.frameworks]}")
+        print(f"  PASS: Successfully analyzed portfolio site")
+        passed += 1
+        
+        await page.context.close()
+        
+    except Exception as e:
+        print(f"  FAIL: Error on portfolio site - {str(e)}")
+        failed += 1
+    
     # Test against a simpler site (example.com - plain HTML)
     try:
         page = await load_page(browser, TEST_URLS["example"], 1920, 1080)
         tech_result = await detect_tech_stack(page)
         
+        detected_frameworks = [f.name for f in tech_result.frameworks]
+        
         print(f"\n  example.com detection:")
-        print(f"    JS Frameworks: {tech_result.js_frameworks or 'None'}")
-        print(f"    CSS Libraries: {tech_result.css_libraries or 'None'}")
+        print(f"    Primary Framework: {tech_result.primary_framework or 'None'}")
+        print(f"    Detected: {detected_frameworks or 'None'}")
         print(f"  PASS: Successfully analyzed simple HTML site")
         passed += 1
         
