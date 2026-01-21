@@ -1,6 +1,19 @@
 # UI Analyzer MCP Server
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.13+](https://img.shields.io/badge/python-3.13+-blue.svg)](https://www.python.org/downloads/)
+[![MCP](https://img.shields.io/badge/MCP-Compatible-green.svg)](https://modelcontextprotocol.io/)
+
 An MCP (Model Context Protocol) server that analyzes website UIs and provides precise fix instructions for AI coding assistants. Designed to solve the problem of "messy UI updates" when using agentic code IDEs like GitHub Copilot or Cursor.
+
+## Features
+
+- 🔍 **Live UI Analysis** - Renders and inspects actual websites using Playwright
+- 🎯 **Smart Query Interpretation** - Understands vague complaints like "navbar is broken"
+- 🛠️ **Precise Fix Instructions** - Generates specific CSS selectors and property changes
+- 🔧 **Technology Detection** - Identifies React, Vue, Angular, Next.js, Tailwind, Bootstrap, and more
+- 📱 **Responsive Testing** - Compare UIs across mobile, tablet, and desktop viewports
+- ♿ **Accessibility Analysis** - Extracts accessibility tree for semantic understanding
 
 ## The Problem
 
@@ -17,10 +30,11 @@ Users often struggle to describe exactly what's wrong, saying things like "the n
 This MCP server bridges that gap by:
 
 1. **Analyzing the live website** - Using Playwright to render and inspect the actual UI
-2. **Identifying UI elements** - Finding navbars, headers, footers, heroes, buttons, forms, etc.
-3. **Detecting issues** - Spotting layout problems, overflow, z-index conflicts, accessibility issues
-4. **Interpreting vague queries** - Understanding what "the header is messed up" actually means
-5. **Generating precise fix instructions** - Providing specific CSS selectors, property changes, and code snippets
+2. **Detecting technology stack** - Identifying frameworks (React, Next.js, Vue) and CSS libraries (Tailwind, Bootstrap)
+3. **Identifying UI elements** - Finding navbars, headers, footers, heroes, buttons, forms, etc.
+4. **Detecting issues** - Spotting layout problems, overflow, z-index conflicts, accessibility issues
+5. **Interpreting vague queries** - Understanding what "the header is messed up" actually means
+6. **Generating framework-aware fix instructions** - Providing specific CSS selectors, property changes, and code snippets tailored to the detected tech stack
 
 ## Installation
 
@@ -177,6 +191,38 @@ Compare the UI at different screen sizes to identify responsive issues.
 ```
 compare_viewports(url="http://localhost:3000")
 ```
+
+### get_tech_stack
+
+Detect the technology stack (frameworks, libraries, CSS approach) used on a webpage. Returns framework-specific fix guidance.
+
+```
+get_tech_stack(url="http://localhost:3000")
+```
+
+Returns:
+- Primary framework (React, Vue, Angular, Svelte, etc.)
+- Meta framework (Next.js, Nuxt, Remix, Gatsby, Astro)
+- CSS approach (Tailwind, Bootstrap, CSS Modules, styled-components)
+- UI libraries (shadcn/ui, Material UI, Chakra UI, Ant Design)
+- Framework-specific fix recommendations
+
+## Supported Technology Detection
+
+### JavaScript Frameworks
+- React, Vue, Angular, Svelte, Solid, Preact
+- jQuery, Alpine.js, HTMX
+
+### Meta Frameworks
+- Next.js, Nuxt, Remix, Gatsby, Astro, SvelteKit, Vite
+
+### CSS Frameworks & Libraries
+- Tailwind CSS, Bootstrap, Bulma, Foundation
+- shadcn/ui, Material UI, Chakra UI, Ant Design, Radix UI
+
+### CSS Approaches
+- CSS Modules, styled-components, Emotion
+- Inline styles, CSS variables, Sass/SCSS
 
 ## Example Workflow
 
