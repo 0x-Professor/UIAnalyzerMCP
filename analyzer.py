@@ -322,13 +322,23 @@ async def identify_elements(
     
     if element_type and element_type in ELEMENT_SELECTORS:
         selectors = ELEMENT_SELECTORS[element_type]
+    elif element_type == "all":
+        # Get all significant elements
+        selectors = [
+            "header", "nav", "main", "section", "article", "aside", "footer",
+            "h1", "h2", "h3", "h4", "h5", "h6",
+            "button", "a[href]", "form", "input", "textarea", "select",
+            "img", "picture", "svg",
+            "div[class]", "div[id]",
+            "[role]",
+        ]
     else:
-        # Get all major element types
+        # Get all major element types from ELEMENT_SELECTORS
         selectors = []
         for sel_list in ELEMENT_SELECTORS.values():
             selectors.extend(sel_list)
     
-    combined_selector = ", ".join(selectors[:20])  # Limit to avoid too many selectors
+    combined_selector = ", ".join(list(dict.fromkeys(selectors))[:30])  # Dedupe and limit
     
     elements_data = await page.evaluate(
         """(selector) => {
